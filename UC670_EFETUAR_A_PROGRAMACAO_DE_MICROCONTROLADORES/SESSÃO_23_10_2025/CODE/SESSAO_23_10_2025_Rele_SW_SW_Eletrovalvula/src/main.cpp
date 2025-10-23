@@ -1,18 +1,34 @@
 #include <Arduino.h>
+int s = 0;
+int x = 0;
+int estadoRele = 0;
 
-// put function declarations here:
-int myFunction(int, int);
-
-void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(2,INPUT);
+  pinMode(3,INPUT);
+  pinMode(4,OUTPUT);
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-}
+void loop()
+{
+  s= digitalRead(2);
+  x= digitalRead(3);
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
-}
+  if (s == LOW && estadoRele == 0)
+    {
+   Serial.println("Ativa");
+   digitalWrite(4, HIGH);
+   estadoRele = 1;
+   delay(300);
+  }
+  if (x == LOW && estadoRele == 1)
+    {
+   Serial.println("Desativa");
+   digitalWrite(4, LOW);
+   estadoRele = 0;
+   delay(300);
+  }
+
+  }
